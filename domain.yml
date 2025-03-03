@@ -1,0 +1,182 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - deny_no_ingredients
+  - deny_recipe
+  - mood_great
+  - mood_unhappy
+  - sad_negation
+  - sad_question
+  - thank_you
+  - sorry
+  - clarify
+  - confirm
+  - uncertainty
+  - passion
+  - fear
+  - angry
+  - neutral
+  - provide_help
+  - provide_ingredients
+  - ask_recipe_with_ingredients
+  - ask_nutrition_info
+  - specify_dietary_preference
+  - provide_details
+  - get_dietary_recommendations
+  - request_ingredient_substitution
+  - accept_ingredient_substitution
+  - deny_ingredient_substitution
+  - select_recipe
+  - choose_recipe_by_number
+
+entities:
+  - ingredient
+  - cooking_time
+  - missing_ingredient
+  - selected_recipe
+  - recipe_number
+
+slots:
+  dietary_preference:
+    type: categorical
+    values:
+      - vegetarian
+      - vegan
+      - gluten_free
+      - none
+      - fasting
+      - without_lactose
+    influence_conversation: true
+    mappings:
+      - type: from_text
+
+  cooking_time:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: cooking_time
+      - type: from_text
+
+  ingredients:
+    type: list
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ingredient
+      - type: from_text
+
+  missing_ingredient:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: missing_ingredient
+
+  substitute_ingredient:
+    type: text
+    influence_conversation: true
+    mappings: []
+
+  selected_recipe:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: selected_recipe
+
+  available_recipes:
+    type: any
+    influence_conversation: false
+    mappings: []
+
+forms:
+  recipe_form:
+    required_slots:
+      - ingredients
+      - cooking_time
+
+responses:
+  utter_ask_ingredients:
+    - text: "What ingredients do you have?"
+
+  utter_ask_cooking_time:
+    - text: "How much time do you have to cook?"
+
+  utter_greet:
+    - text: "Hey! How are you?"
+    - text: "Hello! How can I assist you today?"
+
+  utter_goodbye:
+    - text: "Goodbye! Have a great day!"
+    - text: "See you later! Take care!"
+
+  utter_no_ingredients:
+    - text: "It seems you don't have any ingredients. Maybe you need to go shopping?"
+
+  utter_ask_more_details:
+    - text: "Could you provide more details about what you need help with?"
+
+  utter_mood_great:
+    - text: "That’s amazing! Keep up the great mood!"
+
+  utter_provide_help:
+    - text: "Sure! How can I help you with your cooking?"
+
+  utter_calming_words:
+    - text: "Don’t worry, I’m here to help you."
+
+  utter_thank_you:
+    - text: "You're welcome! Always happy to help."
+
+  utter_affirm:
+    - text: "Great! I'm glad to hear that."
+
+  utter_sorry:
+    - text: "I’m sorry to hear that."
+
+  utter_clarify:
+    - text: "Could you please clarify that for me?"
+
+  utter_confirm:
+    - text: "Alright, that’s confirmed!"
+
+  utter_deny:
+    - text: "No problem! Let me know if you need help."
+
+  utter_mood_unhappy:
+    - text: "I’m sorry to hear that. Want to talk about it?"
+
+  utter_ask_for_preference:
+    - text: "Do you have any specific preference or ingredient you'd like to use?"
+
+  utter_ask_for_alternative_recipe:
+    - text: "Would you like me to suggest a different recipe?"
+
+  utter_suggest_substitute:
+    - text: "You can replace {missing_ingredient} with {substitute_ingredient}. Would you like to use this substitution?"
+
+  utter_accept_substitute:
+    - text: "Great! I'll update the recipe with {substitute_ingredient}."
+
+  utter_deny_substitute:
+    - text: "No problem! Let me know if you need another alternative."
+
+  utter_ask_selected_recipe:
+    - text: "Which recipe would you like to get nutrition info for?"
+
+actions:
+  - action_suggest_recipe
+  - action_provide_nutrition_info
+  - action_provide_recipe_details
+  - action_suggest_substitute
+  - action_update_recipe_with_substitute
+  - action_select_recipe
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

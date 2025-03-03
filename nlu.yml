@@ -1,0 +1,247 @@
+version: "3.1"
+
+nlu:
+
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - hey there
+    - hey dude
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - take care
+    - bye bye
+
+- intent: affirm
+  examples: |
+    - yes
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - never
+    - I don't think so
+    - not really
+    - I don't want to
+    - I refuse
+    - No, I don’t have any ingredients
+    - I don't have anything to cook with
+    - No, I don’t like this recipe
+    - I want something else instead
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+
+- intent: thank_you
+  examples: |
+    - thank you!
+    - Thanks a lot!
+    - I appreciate it!
+    - Thanks, that was helpful!
+
+- intent: sorry
+  examples: |
+    - I’m sorry.
+    - Apologies.
+    - My apologies.
+    - I didn’t mean to.
+    - Please forgive me.
+
+- intent: clarify
+  examples: |
+    - Can you explain that more?
+    - Can you clarify what you meant by that comment?
+    - I don’t fully comprehend, could you elaborate?
+
+- intent: confirm
+  examples: |
+    - Yes, that’s correct.
+    - Indeed.
+    - Absolutely.
+    - That’s right.
+
+- intent: uncertainty
+  examples: |
+    - I'm not sure about that
+    - I don't know
+    - I'm unsure
+    - I’m not quite sure about this
+
+- intent: passion
+  examples: |
+    - I’m so excited about this!
+    - I love it!
+    - This is amazing!
+
+- intent: fear
+  examples: |
+    - I’m scared.
+    - I’m afraid this might go wrong.
+    - I’m nervous about this.
+
+- intent: angry
+  examples: |
+    - I’m so angry right now!
+    - This really makes me mad!
+    - I’m furious about this!
+
+- intent: neutral
+  examples: |
+    - I’m okay.
+    - Things are fine.
+    - I’m just here.
+    - I’m feeling alright.
+
+- intent: ask_recipe_with_ingredients
+  examples: |
+    - What can I cook with [tomato](ingredient) and [chicken](ingredient)?
+    - What can I make with [eggs](ingredient) and [cheese](ingredient)?
+    - Can you suggest a recipe with [potatoes](ingredient) and [carrots](ingredient)?
+    - What can I cook if I have [onion](ingredient) and [garlic](ingredient)?
+
+- intent: provide_ingredients
+  examples: |
+    - I have [tomatoes](ingredient), [cheese](ingredient), and [pasta](ingredient)
+    - I’ve got [chicken](ingredient), [rice](ingredient), and [broccoli](ingredient)
+    - Just [potatoes](ingredient) and [onions](ingredient)
+    - Only [carrots](ingredient)
+    - [beef](ingredient) and [mushrooms](ingredient)
+
+- intent: ask_nutrition_info
+  examples: |
+    - What are the nutrition facts for this dish?
+    - How many calories does this recipe have?
+    - Can you tell me the protein content?
+    - What are the carbs and fat in this dish?
+
+- intent: get_dietary_recommendations
+  examples: |
+    - What are some gluten-free options?
+    - Can you recommend a low-carb recipe?
+    - I need a lactose-free meal suggestion.
+    - Do you have any vegan recipes?
+    - Suggest something high in protein.
+
+- intent: sad_negation
+  examples: |
+    - I can't handle this
+    - I feel like giving up
+    - There's no point in trying
+    - It’s all hopeless
+    - I don’t want to attempt anything
+
+- intent: sad_question
+  examples: |
+    - Why am I feeling so down?
+    - Why does everything go wrong?
+    - What’s the point of all this?
+    - Will I ever feel better?
+    - How can I cope with this sadness?
+
+- intent: specify_dietary_preference
+  examples: |
+    - I'm a vegetarian
+    - I follow a vegan diet
+    - I need lactose-free meals
+    - I prefer gluten-free dishes
+    - Do you have any fasting-friendly meals?
+
+- intent: provide_details
+  examples: |
+    - Let me give you some details about my cooking
+    - I have more specifics to share about the recipe
+    - There's something else I'd like to mention
+    - I'd like to clarify a few things about the ingredients
+    - I want to provide extra information
+
+- intent: provide_help
+  examples: |
+    - Let me help you with more details
+    - Here is how I can provide help
+
+- intent: deny_recipe
+  examples: |
+    - No, I don't want this recipe
+    - I don't like this one
+    - Can you suggest something else?
+    - Do you have another option?
+
+- intent: deny_no_ingredients
+  examples: |
+    - I don't have any ingredients
+    - I have nothing to cook with
+    - There's nothing in my fridge
+
+- intent: request_ingredient_substitution
+  examples: |
+    - I don't have [milk](missing_ingredient), what can I use instead?
+    - Can I replace [eggs](missing_ingredient) with something else?
+    - What can I use instead of [flour](missing_ingredient)?
+    - I need a substitute for [butter](missing_ingredient)
+    - I ran out of [sugar](missing_ingredient), what do you recommend?
+
+- intent: accept_ingredient_substitution
+  examples: |
+    - Yes, that works
+    - I'll use that instead
+    - That substitute is fine
+    - Sounds good
+    - Okay, I'll try it
+
+- intent: deny_ingredient_substitution
+  examples: |
+    - No, I don’t want to use that
+    - I prefer not to substitute it
+    - Can you suggest another alternative?
+    - That doesn't work for me
+    - I don't like that option
+
+- intent: select_recipe
+  examples: |
+    - I want to make [Tomato Soup](selected_recipe)
+    - Let's go with [Pasta Salad](selected_recipe)
+    - I choose [Chicken Stir Fry](selected_recipe)
+    - I'd like to prepare [Greek Salad](selected_recipe)
+    - [Salsa](selected_recipe) sounds good
+
+
+- intent: choose_recipe_by_number
+  examples: |
+    - I want the third one
+    - Recipe number 1, please
+    - Give me option 2
+
+
+synonyms:
+  bell pepper:
+    - capsicum
+    - sweet pepper
+  coriander:
+    - cilantro

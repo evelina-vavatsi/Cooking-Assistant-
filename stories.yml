@@ -1,0 +1,152 @@
+version: "3.1"
+
+stories:
+
+# 1. ΣΥΝΑΙΣΘΗΜΑΤΙΚΕΣ ΑΝΤΙΔΡΑΣΕΙΣ
+
+- story: happy path
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: mood_great
+    - action: utter_mood_great
+
+- story: sad path
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: mood_unhappy
+    - action: utter_mood_unhappy
+    - intent: affirm
+    - action: utter_affirm
+
+- story: angry path
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: angry
+    - action: utter_calming_words
+
+- story: neutral mood path
+  steps:
+    - intent: neutral
+    - action: utter_provide_help
+
+- story: passion mood path
+  steps:
+    - intent: passion
+    - action: utter_provide_help
+
+- story: fear path
+  steps:
+    - intent: fear
+    - action: utter_calming_words
+
+# 2. ΥΠΟΒΟΗΘΗΤΙΚΑ ΣΕΝΑΡΙΑ
+
+- story: user thank you path
+  steps:
+    - intent: thank_you
+    - action: utter_thank_you
+
+- story: user sorry path
+  steps:
+    - intent: sorry
+    - action: utter_sorry
+
+- story: user confirm path
+  steps:
+    - intent: confirm
+    - action: utter_confirm
+
+- story: no ingredients path
+  steps:
+    - intent: deny_no_ingredients
+    - action: utter_no_ingredients
+
+- story: user goodbye path
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+- story: clarify path
+  steps:
+    - intent: clarify
+    - action: utter_clarify
+
+- story: user denies something
+  steps:
+    - intent: deny
+    - action: utter_deny
+
+# 3. ΔΙΑΤΡΟΦΙΚΕΣ ΠΡΟΤΙΜΗΣΕΙΣ
+
+- story: dietary preference path
+  steps:
+    - intent: specify_dietary_preference
+    - action: utter_ask_for_preference
+
+- story: dietary recommendations path
+  steps:
+    - intent: get_dietary_recommendations
+    - action: utter_provide_help
+
+# 4. ΔΙΑΧΕΙΡΙΣΗ ΣΥΝΤΑΓΩΝ (ΚΥΡΙΟ ΣΕΝΑΡΙΟ)
+
+- story: user provides ingredients and chooses recipe
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+    # Ο χρήστης δίνει υλικά (provide_ingredients) ή ρωτά τι να μαγειρέψει (ask_recipe_with_ingredients)
+    - or:
+        - intent: provide_ingredients
+        - intent: ask_recipe_with_ingredients
+    - action: utter_ask_ingredients
+    - action: recipe_form
+    - active_loop: recipe_form
+    - action: utter_ask_cooking_time
+    - active_loop: null
+    - action: action_suggest_recipe
+    - action: action_listen
+
+    # Ο χρήστης επιλέγει συνταγή
+    - intent: choose_recipe_by_number
+    - action: action_select_recipe
+    - action: action_provide_recipe_details
+    - action: action_listen
+
+# 5. ΑΝΤΙΚΑΤΑΣΤΑΣΗ ΥΛΙΚΟΥ
+
+- story: user requests ingredient substitution
+  steps:
+    - intent: request_ingredient_substitution
+    - action: action_suggest_substitute
+    - action: utter_suggest_substitute
+    - action: action_listen
+
+- story: accept ingredient substitution
+  steps:
+    - intent: accept_ingredient_substitution
+    - action: action_update_recipe_with_substitute
+    - action: utter_accept_substitute
+
+- story: deny ingredient substitution
+  steps:
+    - intent: deny_ingredient_substitution
+    - action: utter_deny_substitute
+
+- story: user denies substitution suggestion
+  steps:
+    - intent: deny
+    - action: utter_deny
+
+# 6. ΖΗΤΗΣΗ ΔΙΑΤΡΟΦΙΚΩΝ ΠΛΗΡΟΦΟΡΙΩΝ
+
+- story: user asks for nutrition info
+  steps:
+    - intent: ask_nutrition_info
+    - action: utter_ask_selected_recipe
+    - intent: select_recipe
+    - action: action_provide_nutrition_info
+

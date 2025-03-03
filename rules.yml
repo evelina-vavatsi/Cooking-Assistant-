@@ -1,0 +1,147 @@
+version: "3.1"
+
+rules:
+
+  # 1. Βοήθεια στη μαγειρική
+  - rule: Provide help with cooking
+    steps:
+      - intent: provide_help
+      - action: utter_ask_more_details
+
+  # 2. Επιβεβαίωση πρότασης συνταγής
+  - rule: Confirm suggested recipe
+    steps:
+      - intent: affirm
+      - action: utter_affirm
+
+  # 3. Direct nutrition info request
+  - rule: Direct nutrition info request
+    steps:
+      - intent: ask_nutrition_info
+      - action: utter_ask_selected_recipe
+
+  # 4. Provide nutrition info after user selects recipe
+  - rule: Provide nutrition info after user selects recipe
+    steps:
+      - intent: select_recipe
+      - action: action_provide_nutrition_info
+
+  # 5. Χειρισμός αποχαιρετισμού
+  - rule: Respond to goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 6. Όταν ο χρήστης ζητάει συγγνώμη
+  - rule: Handle sorry intent
+    steps:
+      - intent: sorry
+      - action: utter_sorry
+
+  # 7. Όταν ο χρήστης διευκρινίζει κάτι
+  - rule: Handle clarify intent
+    steps:
+      - intent: clarify
+      - action: utter_clarify
+
+  # 8. Όταν ο χρήστης επιβεβαιώνει κάτι (confirm)
+  - rule: Handle confirm intent
+    steps:
+      - intent: confirm
+      - action: utter_confirm
+
+  # 9. Όταν ο χρήστης είναι σε μεγάλη ευφορία
+  - rule: User is in great mood
+    steps:
+      - intent: mood_great
+      - action: utter_mood_great
+
+  # 10. Όταν ο χρήστης είναι στενοχωρημένος
+  - rule: User is in unhappy mood
+    steps:
+      - intent: mood_unhappy
+      - action: utter_mood_unhappy
+
+  # 11. Όταν ο χρήστης δεν είναι σίγουρος
+  - rule: Handle uncertainty
+    steps:
+      - intent: uncertainty
+      - action: utter_clarify
+
+  # 12. Χρήστης παρέχει επιπλέον λεπτομέρειες
+  - rule: Handle provide_details intent
+    steps:
+      - intent: provide_details
+      - action: utter_provide_help
+
+  # 13. Όταν θες να ηρεμήσεις τον χρήστη (angry)
+  - rule: Calming words
+    steps:
+      - intent: angry
+      - action: utter_calming_words
+
+  # 14. Όταν ο χρήστης είναι πολύ στεναχωρημένος (sad_negation)
+  - rule: Sad negation
+    steps:
+      - intent: sad_negation
+      - action: utter_sorry
+
+  # 15. Όταν ο χρήστης κάνει μια λυπημένη ερώτηση (sad_question)
+  - rule: Sad question
+    steps:
+      - intent: sad_question
+      - action: utter_sorry
+
+  # 16. Όταν ο χρήστης είναι ουδέτερος (neutral)
+  - rule: User is neutral
+    steps:
+      - intent: neutral
+      - action: utter_provide_help
+
+  # 17. Χειρισμός ενθουσιασμού (passion)
+  - rule: Passionate user
+    steps:
+      - intent: passion
+      - action: utter_provide_help
+
+  # 18. Φόβος (fear)
+  - rule: Handle fear
+    steps:
+      - intent: fear
+      - action: utter_calming_words
+
+  # 19. Διατροφικές προτιμήσεις (specify_dietary_preference)
+  - rule: Dietary preference
+    steps:
+      - intent: specify_dietary_preference
+      - action: utter_ask_for_preference
+
+  # 20. Διαιτητικές συστάσεις (get_dietary_recommendations)
+  - rule: Dietary recommendations
+    steps:
+      - intent: get_dietary_recommendations
+      - action: utter_provide_help
+
+  # 21. Αντίδραση στο "ευχαριστώ" (thank_you)
+  - rule: Respond to thanks
+    steps:
+      - intent: thank_you
+      - action: utter_thank_you
+
+  # 22. Αντίδραση σε άρνηση συνταγής (deny_recipe)
+  - rule: User denies a recipe suggestion
+    condition:
+      - slot_was_set:
+          - ingredients: not_null
+    steps:
+      - intent: deny_recipe
+      - action: utter_ask_for_alternative_recipe
+
+  # 23. Υποβολή φόρμας συνταγής
+  - rule: Submit recipe form
+    condition:
+      - active_loop: recipe_form
+    steps:
+      - action: recipe_form
+      - active_loop: null
+      - action: action_suggest_recipe
